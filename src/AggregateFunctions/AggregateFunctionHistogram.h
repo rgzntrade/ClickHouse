@@ -23,6 +23,7 @@
 #include <AggregateFunctions/IAggregateFunction.h>
 
 #include <math.h>
+#include <cmath>
 #include <queue>
 #include <stddef.h>
 
@@ -207,7 +208,7 @@ private:
         {
             // Fuse points if their text representations differ only in last digit
             auto min_diff = 10 * (points[left].mean + points[right].mean) * std::numeric_limits<Mean>::epsilon();
-            if (points[left].mean + min_diff >= points[right].mean)
+            if (points[left].mean + std::fabs(min_diff) >= points[right].mean)
             {
                 points[left] = points[left] + points[right];
             }
